@@ -12,4 +12,4 @@ jobs:
         run: |
           pip install pipenv 
           pipenv install
-          pipenv run python migrate.py test
+          pipenv run python manage.py test
