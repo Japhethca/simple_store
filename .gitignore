@@ -1,3 +1,4 @@
+.env
 .venv
 
 __pycache__
@@ -5,4 +6,3 @@ __pycache__
 .idea
 db.sqlite3
 .vscode
-.env
