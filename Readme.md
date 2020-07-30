@@ -2,10 +2,10 @@
 
 A simple featured online store for your products.
 
-## Techonologies
+## Technologies
 
 - > Python
-- > Django
+- > Django/Django-RF
 - > Postgres
 - > React
 
