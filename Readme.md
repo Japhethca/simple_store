@@ -18,3 +18,5 @@ Clone repository by running `git clone https://github.com/Japhethca/simple_store
 - Create a `.env` using `.env_sample` and fill in all the environmental variables.
 
 - Start services by running `docker-compose up`
+
+- Visit `http://localhost:8000` to view site on your machine.
