@@ -1,7 +1,8 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
-from .views import test
+from .views import home
 
 
-urlpatterns = [path("", test)]
+urlpatterns = [path("", TemplateView.as_view(template_name="store/base.html"))]
 
