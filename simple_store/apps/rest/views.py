@@ -1,8 +1,15 @@
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponseNotAllowed
+from rest_framework import generics
 
-# Create your views here.
+from simple_store.apps.core.models import Product
+from .serializers import ProductSerializer
 
 
-def test_api(request):
-    return JsonResponse({"message": "this is a test api"})
+class ProductList(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
+
+class ProductRetrieve(generics.RetrieveAPIView):
+    queryset = Product
+    serializer_class = ProductSerializer

@@ -1,8 +1,11 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
-from .views import home
+from .views import home, product_detail, cart
 
-
-urlpatterns = [path("", TemplateView.as_view(template_name="store/base.html"))]
+urlpatterns = [
+    path("", home, name="home"),
+    path("<slug:product_id>", product_detail, name="product-details"),
+    path("cart", cart, name="cart"),
+]
 

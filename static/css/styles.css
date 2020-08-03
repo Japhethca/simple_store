@@ -1,0 +1,50 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.ss__header {
+  display: flex;
+  align-items: center;
+}
+
+.ss__site-logo a {
+  color: red;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.ss__nav {
+  margin-left: auto;
+}
+
+.ss__nav-menu {
+  display: flex;
+  list-style-type: none;
+}
+
+.ss__nav-menu-item {
+  padding: 0.6rem;
+}
+
+.ss__search-form {
+  flex: 2;
+  display: flex;
+}
+
+.ss__search-input {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.ss__product-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ss__product-card {
+  border: 1px solid gray;
+  width: 20rem;
+  margin: 0.4rem;
+  padding: 0.4rem;
+}

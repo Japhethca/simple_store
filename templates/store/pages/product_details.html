@@ -1,0 +1,8 @@
+{% extends 'store/base.html' %}
+
+{% block title %}product detail{% endblock title %}
+
+{% block content %}
+<h2>Product details page</h2>
+{% include 'store/snippets/_product_card.html' with product=product %}
+{% endblock content %}

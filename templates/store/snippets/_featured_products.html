@@ -1,0 +1,6 @@
+<h4>Featured Products</h4>
+<div class="ss__featured_products">
+    {% for product in featured_products %}
+        {% include 'store/snippets/_product_card.html' with product=product %}
+    {% endfor %}
+</div>

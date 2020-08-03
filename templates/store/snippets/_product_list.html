@@ -1,0 +1,6 @@
+<h4>Latest products</h4>
+<div class="ss__product-list">
+    {% for product in products %}   
+        {% include 'store/snippets/_product_card.html' with product=product%}
+    {%endfor%}
+</div>

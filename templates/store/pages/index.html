@@ -1,0 +1,16 @@
+{% extends 'store/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block header %}
+<div class="container">
+    {% include 'store/snippets/_header.html' %}
+</div>
+{% endblock header %}
+
+{% block content %}
+    <div class="container">
+        {% include 'store/snippets/_product_list.html' with products=products %}
+        {% include 'store/snippets/_featured_products.html' with featured_products=products %}
+    </div>
+{% endblock content %}
