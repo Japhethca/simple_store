@@ -1,0 +1,12 @@
+<section class="ss__featured-products">
+    <h4 class="ss__product-section-title">Featured Products</h4>
+    <div class="ss__product-list">
+    {% if featured_products|length <= 0 %}
+      <div>There are no products available in the catalog </div>
+    {% else %}
+        {% for product in featured_products|slice:":4" %} 
+        {% include 'store/fragments/_product_card.html' with product=product %} 
+        {% endfor %}
+    {% endif %}
+    </div>
+</section>

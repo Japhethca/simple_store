@@ -1,0 +1,43 @@
+{% load static %} 
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static "css/header.css" %}"> 
+{% endblock extra_css%}
+
+<header class="ss__header">
+  <div class="ss__site-logo">
+    <a href="{% url 'home' %}">Simple Store</a>
+  </div>
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
+  <form action="" class="ss__search-form">
+    <input
+      type="text"
+      placeholder="Search for Products"
+      class="ss__search-input"
+    />
+    <button class="ss__search-button">Search</button>
+  </form>
+
+  <nav class="ss__nav">
+    <ul class="ss__nav-menu">
+      {% if request.user.is_authenticated %}
+      <li class="ss__nav-menu-item">
+        <a href="">{{request.user.username|title}}</a>
+      </li>
+      {% else %}
+      <li class="ss__nav-menu-item">
+        <a href="">Login</a>
+      </li>
+      {% endif %}
+      <li class="ss__nav-menu-item">
+        <a href="{% url 'cart' %}">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+        </svg>
+        Cart
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

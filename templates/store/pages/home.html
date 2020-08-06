@@ -1,0 +1,10 @@
+{% extends 'store/base.html' %} 
+
+{% block title %} Home {% endblock %} 
+{% block header %}
+  {% include 'store/fragments/_header.html' %}
+{% endblock header %} 
+{% block content %}
+  {% include 'store/fragments/_product_list.html' with products=products %} 
+  {% include 'store/fragments/_featured_products.html' with featured_products=products %}
+{% endblock content %}

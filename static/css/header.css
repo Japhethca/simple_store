@@ -1,0 +1,52 @@
+.ss__header {
+  display: flex;
+  align-items: center;
+  margin: 1rem auto 2rem auto;
+}
+
+.ss__site-logo a {
+  color: #5d5d5a;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.ss__nav {
+  margin-left: auto;
+}
+
+.ss__nav-menu {
+  display: flex;
+  list-style-type: none;
+}
+
+.ss__nav-menu-item {
+  padding: 0.6rem;
+}
+
+.ss__nav-menu-item a {
+  color: #c94e4e;
+}
+
+.ss__nav-menu-item a:hover {
+  text-decoration: none;
+  color: #713045;
+}
+
+.ss__search-form {
+  flex: 2;
+  display: flex;
+}
+
+.ss__search-input {
+  margin: 0 0.5rem 0 1rem;
+  padding: 0.5rem;
+  line-height: 1rem;
+}
+
+.ss__search-button {
+  background-color: #85203b;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}

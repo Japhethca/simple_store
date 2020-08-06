@@ -1,8 +1,20 @@
 {% extends 'store/base.html' %}
+{% load static %}
 
-{% block title %}product detail{% endblock title %}
-
+{% block title %}{{product.name|title}}{% endblock title %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/product-details.css' %}">
+{% endblock extra_css %}
 {% block content %}
-<h2>Product details page</h2>
-{% include 'store/snippets/_product_card.html' with product=product %}
+
+<section class="ss__product-details">
+    <div class="ss__product-images">
+        <img src="{% if product.image %} {{product.image}} {% else %} {% static 'images/no-product-image.jpg'%} {% endif %}" alt={{product.name|slugify}} class="product-image">
+    </div>
+    <div class="ss__product-info">
+        <h2>{{product.name}}</h2>
+        <p>${{product.price}}</p>
+        <button>Add to Cart</button>
+    </div>
+</section>
 {% endblock content %}

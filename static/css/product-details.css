@@ -1,0 +1,11 @@
+.ss__product-details {
+  display: flex;
+}
+
+.ss__product-images {
+  flex: 1;
+}
+
+.ss__product-info {
+  flex: 1.5;
+}

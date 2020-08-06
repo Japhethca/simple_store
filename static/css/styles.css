@@ -1,40 +1,13 @@
-.container {
-  width: 80%;
-  margin: auto;
+html {
+  box-sizing: border-box;
 }
 
-.ss__header {
-  display: flex;
-  align-items: center;
+body {
+  background-color: #f5f5f5;
 }
 
-.ss__site-logo a {
-  color: red;
-  text-decoration: none;
-  font-size: 1.5em;
-}
-
-.ss__nav {
-  margin-left: auto;
-}
-
-.ss__nav-menu {
-  display: flex;
-  list-style-type: none;
-}
-
-.ss__nav-menu-item {
-  padding: 0.6rem;
-}
-
-.ss__search-form {
-  flex: 2;
-  display: flex;
-}
-
-.ss__search-input {
-  margin-left: 1rem;
-  margin-right: 1rem;
+.ss__latest-product {
+  margin-top: 2rem;
 }
 
 .ss__product-list {
@@ -42,9 +15,11 @@
   flex-wrap: wrap;
 }
 
-.ss__product-card {
-  border: 1px solid gray;
-  width: 20rem;
-  margin: 0.4rem;
-  padding: 0.4rem;
+.ss__featured-products {
+  margin-top: 2rem;
+}
+
+.ss__product-section-title {
+  color: #5d5d5a;
+  margin: 1.5rem auto 1.5rem auto;
 }

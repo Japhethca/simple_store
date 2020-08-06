@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,13 +8,28 @@
     <title>
         {% block title %}{% endblock %}
     </title>
-    <link rel="stylesheet" href={% static "css/styles.css" %}>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    {% compress css %}
+      {% block styles %}
+        {% comment %} <link rel="stylesheet" href="{% static "css/reset.css" %}"> {% endcomment %}
+        <link rel="stylesheet" href={% static "css/styles.css" %}>
+      {% endblock styles %}
+      {% block extra_css%} {% endblock extra_css %}
+    {% endcompress %}
   </head>
   <body>
-    {% block header %} {% include 'store/snippets/_header.html' %} {% endblock header %} 
-    {% block content %}
-    {% endblock content %}
-    {% block footer %} {% endblock footer %}
-    <script src={% static "js/main.js"%}></script>
+    <div class="container ss_background">
+      {% block header %} 
+        {% include 'store/fragments/_header.html' %}
+      {% endblock header %} 
+
+      {% block content %}
+      {% endblock content %}
+
+      {% block footer %} {% endblock footer %}
+    </div>
+
+      <script src={% static "js/main.js"%}></script>
+      {% block extra_js %}{% endblock extra_js %}
   </body>
 </html>
