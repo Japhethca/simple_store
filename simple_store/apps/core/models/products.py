@@ -20,6 +20,9 @@ class Product(models.Model):
     size = models.CharField(max_length=100, null=True, blank=True)
     published = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ("name",)
+
     def clean_slug(self):
         if self.slug is None and self.name != "":
             self.slug = slugify(f"{self.name}-{self.id}")
