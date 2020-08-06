@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "compressor",
     "rest_framework",
     # simple store apps
     "simple_store.apps.store",
@@ -81,6 +82,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+AUTHENTICATION_BACKENDS = [
+    "simple_store.apps.core.auth_backends.SettingsBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+ADMIN_LOGIN = os.getenv("ADMIN_USER")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -91,11 +100,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+COMPRESS_ENABLED = True
 
 STATICFILES_DIRS = [
     os.path.join(ROOT_DIR, "static"),
-    "/var/www/static/",
+    # "/var/www/static/",
 ]
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+)
+
+STATIC_ROOT = "/var/www/static"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
