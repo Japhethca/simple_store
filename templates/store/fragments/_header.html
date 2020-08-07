@@ -7,9 +7,9 @@
   <div class="ss__site-logo">
     <a href="{% url 'home' %}">Simple Store</a>
   </div>
-  {% comment %} <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-  </svg> {% endcomment %}
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
   <form action="" class="ss__search-form">
     <input
       type="text"
@@ -23,19 +23,11 @@
     <ul class="ss__nav-menu">
       {% if request.user.is_authenticated %}
       <li class="ss__nav-menu-item">
-        <a href="">{{request.user.username|title}}</a> / 
-        <form action="{% url 'account_logout' %}?next={{request.path}}" style="display:inline;" method="POST">
-          {% csrf_token %}
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-          {% endif %}
-          <button>Logout</button>
-        </form>
+        <a href="">{{request.user.username|title}}</a>
       </li>
       {% else %}
       <li class="ss__nav-menu-item">
-        <a href="{% url 'account_login' %}?next={{request.path}}">Login</a> /
-        <a href="{% url 'account_signup' %}?next={{request.path}}">Signup</a>
+        <a href="">Login</a>
       </li>
       {% endif %}
       <li class="ss__nav-menu-item">

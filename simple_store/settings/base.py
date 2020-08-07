@@ -23,14 +23,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",
     "compressor",
     "rest_framework",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    # "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.google",
     # simple store apps
     "simple_store.apps.store",
     "simple_store.apps.rest",
@@ -93,23 +87,6 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-# Allauth settings
-SITE_ID = 1
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        "SCOPE": ["profile", "email",],
-        "APP": {
-            "client_id": os.getenv("GOOGLE_SOCIAL_CLIENT_ID"),
-            "secret": os.getenv("GOOGLE_SOCIAL_CLIENT_SECRET"),
-            "key": os.getenv("GOOGLE_SOCIAL_KEY"),
-        },
-    }
-}
-
-# Authentication backend settings
 ADMIN_LOGIN = os.getenv("ADMIN_USER")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
