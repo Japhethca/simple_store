@@ -50,3 +50,10 @@
   border-radius: 5px;
   padding: 0.5rem 1rem;
 }
+
+.ss__logout-btn {
+  background-color: none;
+  color: #c94e4e;
+  outline: none;
+  border: 0;
+}
