@@ -1,0 +1,32 @@
+.ss__auth-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ss_section-title {
+  margin: 2rem auto;
+}
+
+.ss__google-social-link {
+  background-color: red;
+  color: #fff;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+.ss__google-social-link:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.ss__auth-button {
+  display: block;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+  border-radius: 5px;
+  background-color: #713045;
+  color: #fff;
+  width: 100%;
+}

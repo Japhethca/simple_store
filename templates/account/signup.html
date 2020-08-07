@@ -1,0 +1,25 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts.css'%}">
+{% endblock extra_css %}
+{% block content %}
+<section class="ss__auth-page">
+<h1 class="ss_section-title ">{% trans "Sign Up" %}</h1>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}?{%if not request.path in request.META.QUERY_STRING %}{{request.META.QUERY_STRING}} {% endif %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="ss__auth-button" type="submit">{% trans "Sign Up" %}</button>
+</form>
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+</section>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'store/base.html' %} 
+{% load account socialaccount %}
+{% load i18n %}
+{% load static %}
+
+{% block title %} Sign in {% endblock title %}   
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/accounts.css"%}">
+{% endblock extra_css %}
+{% block content %}
+
+<section class="ss__auth-page">
+    <h1 class="ss_section-title">{% trans "Sign In" %}</h1>
+
+    <form class="login" method="POST" action="{% url 'account_login' %}?{%if not request.path in request.META.QUERY_STRING %}{{request.META.QUERY_STRING}} {% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="ss__auth-button" type="submit">{% trans "Sign In" %}</button>
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    </form>
+
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+    {% for provider in socialaccount_providers %}
+    {% if provider.name|lower == "google" %}
+    <a title="{{provider.name}}" class="ss__google-social-link {{provider.id}}" 
+        href="{% provider_login_url provider.id process="login" scope=scope auth_params=auth_params %}">Sign in with {{provider.name}}</a>
+    {% endif %}
+    {% endfor %}
+
+    <p>{% blocktrans %}Don't have not created an account,
+    <a href="{{ signup_url }}">sign up</a>.{% endblocktrans %}</p>
+    {% endif %}
+</section>
+
+{% endblock %}
