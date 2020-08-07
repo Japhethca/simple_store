@@ -11,6 +11,11 @@ django-rest-framework = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
 django-compressor = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+makemigrations = 'python manage.py makemigrations'
+migrate = 'python manage.py migrate'
