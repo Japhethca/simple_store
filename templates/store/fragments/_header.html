@@ -24,12 +24,18 @@
       {% if request.user.is_authenticated %}
       <li class="ss__nav-menu-item">
         <a href="">{{request.user.username|title}}</a> / 
-        <form action="{% url 'account_logout' %}" method="POST"><input type="button" value="Logout"></form>
+        <form action="{% url 'account_logout' %}?next={{request.path}}" style="display:inline;" method="POST">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+          {% endif %}
+          <button>Logout</button>
+        </form>
       </li>
       {% else %}
       <li class="ss__nav-menu-item">
-        <a href={% url 'account_login' %}>Login</a> /
-        <a href={% url 'account_signup' %}>Signup</a>
+        <a href="{% url 'account_login' %}?next={{request.path}}">Login</a> /
+        <a href="{% url 'account_signup' %}?next={{request.path}}">Signup</a>
       </li>
       {% endif %}
       <li class="ss__nav-menu-item">
