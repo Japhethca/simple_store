@@ -1,8 +1,8 @@
 {% extends 'store/base.html' %} 
 
-{% block title %} Home {% endblock %} 
+{% block title %} Simple Store {% endblock %} 
 {% block header %}
-  {% include 'store/fragments/_header.html' %}
+  {% include 'store/fragments/_header.html' with cart_items_no=cart_items_no %}
 {% endblock header %} 
 {% block content %}
   {% include 'store/fragments/_product_list.html' with products=products %} 
