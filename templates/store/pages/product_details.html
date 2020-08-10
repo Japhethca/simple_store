@@ -14,7 +14,16 @@
     <div class="ss__product-info">
         <h2>{{product.name}}</h2>
         <p>${{product.price}}</p>
-        <button>Add to Cart</button>
+        <form action="{% url "cart" %}?next={{request.path}}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{product.id}}">
+            <button>Add to Cart</button>
+        </form>
     </div>
+</section>
+
+<section>
+    <h3>Description</h3>
+    <p>{{product.description}}</p>
 </section>
 {% endblock content %}
