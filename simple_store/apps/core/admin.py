@@ -10,6 +10,8 @@ from .models import (
     Rating,
     Cart,
     CartItem,
+    Order,
+    OrderItem,
 )
 
 
@@ -17,4 +19,4 @@ admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Photo)
 admin.site.register(Brand)
-admin.site.register([Customer, Review, Rating, Cart, CartItem])
+admin.site.register([Customer, Review, Rating, Cart, CartItem, Order, OrderItem])
