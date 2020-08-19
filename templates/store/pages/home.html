@@ -1,10 +1,13 @@
-{% extends 'store/base.html' %} 
+{% extends 'store/base.html' %}
 
-{% block title %} Simple Store {% endblock %} 
+{% block title %} Simple Store {% endblock %}
 {% block header %}
-  {% include 'store/fragments/_header.html' with cart_items_no=cart_items_no %}
-{% endblock header %} 
+{% include 'store/fragments/_header.html' with cart_items_no=cart_items_no %}
+{% endblock header %}
+
 {% block content %}
-  {% include 'store/fragments/_product_list.html' with products=products %} 
-  {% include 'store/fragments/_featured_products.html' with featured_products=products %}
+<section>
+  {% include 'store/fragments/_product_list.html' with products=products %}
+</section>
+{% include 'store/fragments/_featured_products.html' with featured_products=products %}
 {% endblock content %}

@@ -1,0 +1,46 @@
+.checkout-sections {
+  margin: 1.5rem auto;
+  width: 100%;
+}
+
+.checkout-btn {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #85203b;
+  border: 0;
+  outline: 0;
+}
+
+.ss__checkout-cart .update-btn {
+  color: #85203b;
+}
+
+.ss__checkout-cart .update-btn:hover {
+  color: #85203b;
+  text-decoration: none;
+}
+
+.cart-items-table {
+  margin-bottom: 1rem;
+}
+
+.cart-items-table a {
+  color: #222;
+}
+
+.cart-items-table a:hover {
+  text-decoration: none;
+  color: #85203b;
+}
+
+.cart-items-table thead {
+  background-color: rgb(206, 203, 203);
+}
+
+.cart-items-table th {
+  padding: 0.5rem;
+}
+
+.cart-items-table tbody>tr {
+  padding: 0.3rem auto;
+}

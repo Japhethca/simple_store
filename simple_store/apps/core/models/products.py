@@ -23,11 +23,7 @@ class Product(models.Model):
     class Meta:
         ordering = ("name",)
 
-    def clean_slug(self):
-        if self.slug is None and self.name != "":
-            self.slug = slugify(f"{self.name}-{self.id}")
-
-    def clean_price(self):
+    def clean(self):
         if self.price <= 0:
             raise ValidationError({"price": _("price cannot be less than 0.")})
 
@@ -37,7 +33,10 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    # sub_categories = models.
+    parent = models.ForeignKey(
+        "Category", on_delete=models.CASCADE, null=True, blank=True
+    )
+
     def __str__(self):
         return self.name
 

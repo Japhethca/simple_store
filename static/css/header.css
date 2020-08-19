@@ -1,7 +1,5 @@
-.ss__header {
-  display: flex;
-  align-items: center;
-  margin: 1rem auto 2rem auto;
+.ss_header_wrapper {
+  background-color: #fff;
 }
 
 .ss__site-logo a {
@@ -11,12 +9,15 @@
 }
 
 .ss__nav {
+  display: flex;
   margin-left: auto;
 }
 
 .ss__nav-menu {
   display: flex;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .ss__nav-menu-item {
@@ -52,7 +53,7 @@
 }
 
 .ss__logout-btn {
-  background-color: none;
+  background-color: #fff;
   color: #c94e4e;
   outline: none;
   border: 0;

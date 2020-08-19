@@ -13,9 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -24,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    # installed apps
     "compressor",
     "rest_framework",
     "allauth",
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     # "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.google",
+    "crispy_forms",
     # simple store apps
     "simple_store.apps.store",
     "simple_store.apps.rest",
@@ -66,6 +66,9 @@ TEMPLATES = [
     },
 ]
 
+# crispy form settings
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 WSGI_APPLICATION = "simple_store.wsgi.application"
 
 
@@ -95,12 +98,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Allauth settings
+LOGIN_REDIRECT_URL = "/customer/profile"
+
 SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
         "SCOPE": ["profile", "email",],
         "APP": {
             "client_id": os.getenv("GOOGLE_SOCIAL_CLIENT_ID"),

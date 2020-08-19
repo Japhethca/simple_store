@@ -1,12 +1,12 @@
 <div class="ss__latest-product">
-  <h4 class="ss__product-section-title">Latest products</h4>
+  <h4 class="ss__product-section-title">{{section_header_title|default:"Latest products"}}</h4>
   <section class="ss__product-list">
     {% if products|length <= 0 %}
-      <div>There are no products available in the catalog </div>
+    <div>There are no products available in the catalog </div>
     {% else %}
-      {% for product in products %} 
-        {% include 'store/fragments/_product_card.html' with product=product%} 
-      {%endfor%}
+    {% for product in products %}
+    {% include 'store/fragments/_product_card.html' with product=product%}
+    {%endfor%}
     {% endif %}
   </section>
 </div>

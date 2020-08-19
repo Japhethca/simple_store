@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+
+{% block title %} Payment Successful
+{% endblock title %}
+
+{% block header %}
+<div class="h2 text-center mt-4">Simple Store</div>
+{% endblock header %}
+{% block content %}
+<div class="container d-flex flex-column align-items-center mt-5">
+  <p class="h5 text-center">Your payment was Successful</p>
+  <p>Go to <a href="{% url 'customer-orders' %}">Orders</a> or <a href="{% url 'home' %}">Home</a></p>
+</div>
+{% endblock content %}

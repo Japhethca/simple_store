@@ -5,3 +5,6 @@ from .products import *
 from .customers import *
 from .reviews import *
 from .cart import *
+from .address import *
+from .payment_method import *
+from .order import *

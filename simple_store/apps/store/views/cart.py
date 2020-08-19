@@ -1,73 +1,45 @@
+"""
+Cart views
+"""
 from django.shortcuts import (
     render,
-    HttpResponse,
     get_object_or_404,
-    Http404,
     redirect,
     reverse,
 )
+from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http.request import QueryDict
-from django.http.response import HttpResponseNotFound
-from django.utils.text import slugify
 from django.views import View
-from django.views.generic import DetailView, DeleteView
+from django.views.generic import DeleteView
 from django.db.models import Sum
 
-from simple_store.apps.core.models import Product, Cart, CartItem
-from .forms import SearchForm
+from simple_store.apps.core.models import (
+    Product,
+    Cart,
+    CartItem,
+)
 
 
-class HomePage(View):
-    form_class = SearchForm
-    template_name = "store/pages/home.html"
-
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        products = Product.objects.all()
-        context = {
-            "products": products,
-            "search_form": form,
-        }
-        return render(request, self.template_name, context=context)
-
-
-class ProductDetail(DetailView):
-    template_name = "store/pages/product_details.html"
-    model = Product
-    context_object_name = "product"
-    pk_url_kwarg = "product_id"
-
-    def get(self, request, **kwargs):
-        product_slug = kwargs.get("product_slug")
-        product_id = kwargs.get("product_id")
-        try:
-            int(product_id)
-        except ValueError:
-            raise Http404()
-
-        product = self.get_object()
-        if (slug := slugify(product.name)) != product_slug:
-            return redirect("product-details", slug, product.id)
-
-        return super().get(request, **kwargs)
+User = get_user_model()
 
 
 class CartView(View):
     http_method_names = ["get", "post", "put"]
     template_name = "store/pages/cart.html"
 
-    def get(self, request, **kwargs):
+    def get(self, request):
         context = {}
         if request.user.is_authenticated:
             cart, _ = Cart.objects.get_or_create(customer_id=request.user.id)
             cart_items = CartItem.objects.filter(cart=cart)
             cart_total = cart_items.aggregate(Sum("total_price"))
+
             context["cart_items"] = cart_items
             context["cart_items_total"] = cart_total.get("total_price__sum")
         return render(request, self.template_name, context=context)
 
-    def post(self, request, **kwargs):
+    def post(self, request):
         if not request.user.is_authenticated:
             querydict = QueryDict(request.META.get("QUERY_STRING"))
             next_url = querydict.get("next", "/")
