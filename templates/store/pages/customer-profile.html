@@ -1,0 +1,15 @@
+{% extends 'store/profile-base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block profile_view %}
+<h4>Customer Profile</h4>
+<form action="">
+    {% csrf_token %}
+    {{profile_form|crispy}}
+    <button class="btn ss__btn">Update</button>
+</form>
+{% endblock profile_view %}

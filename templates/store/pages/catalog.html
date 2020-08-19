@@ -1,0 +1,10 @@
+{% extends 'store/base.html' %}
+
+{% block title %} Catalog
+{% endblock title %}
+
+{% block content %}
+<section>
+  {% include 'store/fragments/_product_list.html' with products=products section_header_title="Product Catalog" %}
+</section>
+{% endblock content %}

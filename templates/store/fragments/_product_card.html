@@ -1,10 +1,11 @@
 {% load static %}
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/product_card.css' %}">
+<link rel="stylesheet" href="{% static 'css/product_card.css' %}">
 {% endblock extra_css  %}
 
 <div class="ss__product-card">
-  <img class="ss__product-card-img" src={% if product.image %} {{product.image}} {% else %} {% static 'images/no-product-image.jpg' %} {% endif %} alt="{{product.name}}">
+  <img class="ss__product-card-img" src={% if product.image %} {{product.image}} {% else %}
+    {% static 'images/no-product-image.jpg' %} {% endif %} alt="{{product.name}}">
   <a class="ss__product-title" href="{% url 'product-details' product.name|slugify product.id %}">{{product.name}}</a>
   <div class="ss__product-price">${{product.price}}</div>
 </div>
