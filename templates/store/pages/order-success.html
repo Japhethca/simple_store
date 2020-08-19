@@ -1,0 +1,12 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Order Successful{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 d-flex flex-column align-items-center">
+  <h1>Your Order has been placed</h1>
+  <p>Your order number is #{{order_number}}</p>
+  <p>Please Proceed to make payment</p>
+  <a class="btn ss__btn" href="{% url 'make-order-payment' %}">Make Payment</a>
+</div>
+{% endblock content %}

@@ -5,6 +5,16 @@
   text-align: center;
 }
 
+.ss__cart-table a {
+  text-transform: capitalize;
+  color: black;
+}
+
+.ss__cart-table a:hover {
+  text-decoration: none;
+  color: #85203b;
+}
+
 .ss__cart-table thead {
   background-color: rgb(220, 226, 226);
 }

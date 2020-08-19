@@ -1,0 +1,67 @@
+{% extends 'store/profile-base.html' %}
+{% url 'customer-address-new' as new_address_url%}
+
+{% block title %}
+{% if request.path == new_address_url %}
+New Address
+{% else %}
+Edit Address
+{% endif %}
+{% endblock title %}
+
+{% block profile_view %}
+<div class="d-flex">
+    <a class="btn mr-2" href="{% url 'customer-address' %}">
+        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.646 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L6.207 7.5H11a.5.5 0 0 1 0 1H6.207l2.147 2.146z" />
+        </svg>
+    </a>
+    <h2>Customer Address</h2>
+</div>
+<form action="{{request.path}}" method="POST">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md">
+            <label for="{{form.first_name.id_for_label}}">{{form.first_name.label}}</label>
+            {{form.first_name}}
+        </div>
+        <div class="form-group col-md">
+            <label for="{{form.last_name.id_for_label}}">{{form.last_name.label}}</label>
+            {{form.last_name}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md">
+            <label for="{{form.phone_number.id_for_label}}">{{form.phone_number.label}}</label>
+            {{form.phone_number}}
+        </div>
+        <div class="form-group col-md">
+            <label for="{{form.address.id_for_label}}">{{form.address.label}}</label>
+            {{form.address}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md">
+            <label for="{{form.city.id_for_label}}">{{form.city.label}}</label>
+            {{form.city}}
+        </div>
+        <div class="form-group col-md">
+            <label for="{{form.state.id_for_label}}">{{form.state.label}}</label>
+            {{form.state}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md">
+            <label for="{{form.postal_code.id_for_label}}">{{form.postal_code.label}}</label>
+            {{form.postal_code}}
+        </div>
+        <div class="form-group col-md">
+            <label for="{{form.country.id_for_label}}">{{form.country.label}}</label>
+            {{form.country}}
+        </div>
+    </div>
+    <button class="btn btn-info" type="submit">Save</button>
+</form>
+{% endblock profile_view %}

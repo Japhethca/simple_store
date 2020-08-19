@@ -1,0 +1,19 @@
+{% extends 'store/profile-base.html' %}
+
+{% block title %}
+Orders
+{% endblock title %}
+
+{% block profile_view %}
+<h4>Customer Orders</h4>
+<div>
+  {% for order_item in customer_orders %}
+  <div>
+    <h4>{{order_item.product.name}} | {{order_item.order.id}}</h4>
+    <p><span class="font-weight-bold">{{order_item.total_price}} | {{order_item.order.status}}</span></p>
+  </div>
+  {%empty%}
+  <p>You have not made any order, yet.</p>
+  {% endfor %}
+</div>
+{% endblock profile_view %}
