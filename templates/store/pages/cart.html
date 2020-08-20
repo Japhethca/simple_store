@@ -8,12 +8,15 @@
 {% endblock extra_css %}
 
 {% block content %}
-<h2 class="mt-4">Cart ({{cart_items_number|default_if_none:"0"}} items)</h2>
+<div class="d-flex mt-4">
+  <div class="h2">Cart ({{cart_items_number|default_if_none:"0"}} items)</div>
+  <span class="ml-auto align-self-center font-weight-bold">Total Price: {{cart_items_total}}</span>
+</div>
 
 {% if request.user.is_authenticated %}
 {% if cart_items|length > 0 %}
-<table class="ss__cart-table">
-  <thead>
+<table class="table mt-4">
+  <thead class="thead-light">
     <th></th>
     <th></th>
     <th>Product</th>
@@ -37,7 +40,8 @@
         </form>
       </td>
       <td></td>
-      <td><a
+      <td>
+        <a class="ss__link"
           href="{% url 'product-details' item.product_id.name|slugify item.product_id.id %}">{{item.product_id.name}}</a>
       </td>
       <td>{{item.quantity}}</td>
@@ -48,10 +52,7 @@
   </tbody>
 </table>
 
-<div class="ss_cart-checkout">
-  <div>
-    Cart Total Price: <span class="ss__cart-total-price">${{cart_items_total}}</span>
-  </div>
+<div class="d-flex justify-content-md-end">
   <a class="btn ss__btn mt-3" href="{% url 'checkout' %}">Proceed to Checkout</a>
 </div>
 {% else %}

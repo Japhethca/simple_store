@@ -6,10 +6,10 @@ Profile
 {% endblock title %}
 
 {% block profile_view %}
-<h4>Customer Profile</h4>
+<h4>Your Profile</h4>
 <form action="">
-    {% csrf_token %}
-    {{profile_form|crispy}}
-    <button class="btn ss__btn">Update</button>
+  {% csrf_token %}
+  {{profile_form|crispy}}
+  <button class="btn ss__btn">Update</button>
 </form>
 {% endblock profile_view %}
