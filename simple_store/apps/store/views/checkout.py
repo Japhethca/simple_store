@@ -1,7 +1,4 @@
-import os
-import requests
-from requests.exceptions import RequestException
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,6 +36,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
     def post(self, request):
         if not request.user.is_authenticated:
+            print("user is not authenticated")
             return redirect("cart")
 
         payment_form = self.get_payment_form(request)
@@ -52,14 +50,8 @@ class CheckoutView(LoginRequiredMixin, View):
             return redirect("checkout")
         if payment_form.is_valid() and delivery_add is not None:
             payment_method = payment_form.cleaned_data.get("payment_method")
-            order_number, order_amount = self.create_order(request)
-            order_details = {
-                "order_number": order_number,
-                "order_amount": order_amount,
-                "payment_method": payment_method,
-            }
-            request.session["order_details"] = order_details
-            return redirect("order-success")
+            order = self.create_order(request, payment_method)
+            return redirect("order-success", order_number=order.id)
 
         post_context = {
             **self.get_cart_context(request),
@@ -96,11 +88,13 @@ class CheckoutView(LoginRequiredMixin, View):
             BillingAddress.set_as_default(default_address)
         return default_address
 
-    def create_order(self, request):
+    def create_order(self, request, payment_method):
         cart = Cart.objects.get(customer_id=request.user.id)
         cart_items = CartItem.objects.filter(cart=cart)
 
-        order = Order.objects.create(customer=request.user)
+        order = Order.objects.create(
+            customer=request.user, payment_method=payment_method
+        )
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -109,6 +103,5 @@ class CheckoutView(LoginRequiredMixin, View):
                 quantity=item.quantity,
             )
 
-        order_amount = cart_items.aggregate(Sum("total_price")).get("total_price__sum")
         cart_items.delete()
-        return order.id, str(order_amount)
+        return order
