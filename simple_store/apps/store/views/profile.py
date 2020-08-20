@@ -10,7 +10,7 @@ from django.views.generic import DeleteView, ListView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import model_to_dict
 
-from simple_store.apps.core.models import BillingAddress, Order, OrderItem
+from simple_store.apps.core.models import BillingAddress
 from ..forms import (
     AddressForm,
     ProfileForm,
@@ -35,19 +35,6 @@ class CustomerReviews(LoginRequiredMixin, ListView):
     template_name = "store/pages/customer-reviews.html"
     login_url = "/accounts/login"
     queryset = []
-
-
-class CustomerOrders(LoginRequiredMixin, ListView):
-    template_name = "store/pages/customer-orders.html"
-    login_url = "/accounts/login"
-    model = OrderItem
-    context_object_name = "customer_orders"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        orders = Order.objects.filter(customer=self.request.user)
-        order_items = queryset.filter(order__in=orders)
-        return order_items
 
 
 class CustomerAddress(LoginRequiredMixin, ListView):

@@ -1,5 +1,4 @@
 from django.urls import path
-from django.views.generic import TemplateView
 
 from .views import (
     HomePage,
@@ -19,6 +18,8 @@ from .views import (
     CustomerAddressSetDefault,
     OrderSuccess,
     OrderPayment,
+    OrderPaymentSuccess,
+    OrderDetails,
 )
 
 urlpatterns = [
@@ -61,15 +62,20 @@ urlpatterns = [
         name="customer-address-set-default",
     ),
     path("customer/orders", CustomerOrders.as_view(), name="customer-orders"),
-    path("order/successful", OrderSuccess.as_view(), name="order-success"),
-    path("customer/reviews", CustomerReviews.as_view(), name="customer-reviews"),
-    path("customer/favorites", CustomerFavorites.as_view(), name="customer-favorites"),
+    path("customer/order-details/<pk>", OrderDetails.as_view(), name="order-details"),
     path(
-        "payment/payment-success",
-        TemplateView.as_view(template_name="store/pages/payment-success.html"),
+        "order/successful/<order_number>", OrderSuccess.as_view(), name="order-success"
+    ),
+    path(
+        "order/payment-success/<order_number>",
+        OrderPaymentSuccess.as_view(),
         name="payment-success",
     ),
     path(
-        "payment/make-order-payment", OrderPayment.as_view(), name="make-order-payment",
+        "order/make-payment/<order_number>",
+        OrderPayment.as_view(),
+        name="make-order-payment",
     ),
+    path("customer/reviews", CustomerReviews.as_view(), name="customer-reviews"),
+    path("customer/favorites", CustomerFavorites.as_view(), name="customer-favorites"),
 ]

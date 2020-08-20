@@ -1,19 +1,25 @@
 {% extends 'store/profile-base.html' %}
+{% load static %}
+{% block title %} Orders {% endblock title %}
 
-{% block title %}
-Orders
-{% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/accounts.css" %}">
+{% endblock extra_css %}
 
 {% block profile_view %}
-<h4>Customer Orders</h4>
-<div>
-  {% for order_item in customer_orders %}
+<div class="ss_customer_orders pl-md-3">
+  <h4 class="mb-3">Your Orders</h4>
   <div>
-    <h4>{{order_item.product.name}} | {{order_item.order.id}}</h4>
-    <p><span class="font-weight-bold">{{order_item.total_price}} | {{order_item.order.status}}</span></p>
+    {% for order in customer_orders %}
+    <div>
+      <a href="{% url 'order-details' pk=order.id %}" class="ss__link h5">Order Number #{{order.id}}</a>
+      <p><span>{{order.date_placed|date:"d-m-Y"}}</span> | <span
+          class="badge {%if order.status == 'COMPLETED'%}badge-success{%elif order.status == 'PENDING'%}badge-info {%elif order.status == 'CANCELLED'%}badge-danger{%elif order.status == 'AWAITING PAYMENT'%}badge-warning{%endif%}">{{order.status}}</span>
+      </p>
+    </div>
+    {%empty%}
+    <p class="just">You have not made any order, yet.</p>
+    {% endfor %}
   </div>
-  {%empty%}
-  <p>You have not made any order, yet.</p>
-  {% endfor %}
 </div>
 {% endblock profile_view %}

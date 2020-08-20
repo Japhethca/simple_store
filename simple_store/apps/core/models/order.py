@@ -2,23 +2,36 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-PENDING = "PENDING"
-COMPLETED = "COMPLETED"
-CANCELLED = "CANCELLED"
+ORDER_PENDING = "PENDING"
+ORDER_COMPLETED = "COMPLETED"
+ORDER_CANCELLED = "CANCELLED"
+ORDER_AWAITING_PAYMENT = "AWAITING PAYMENT"
 
 ORDER_STATUSES = (
-    (PENDING, PENDING),
-    (COMPLETED, COMPLETED),
-    (CANCELLED, CANCELLED),
+    (ORDER_PENDING, ORDER_PENDING),
+    (ORDER_COMPLETED, ORDER_COMPLETED),
+    (ORDER_CANCELLED, ORDER_CANCELLED),
+    (ORDER_AWAITING_PAYMENT, ORDER_AWAITING_PAYMENT),
 )
 
+PAYMENT_METHOD_CARD = "card"
+PAYMENT_METHOD_BANK = "bank"
+PAYMENT_METHODS = (
+    (PAYMENT_METHOD_BANK, PAYMENT_METHOD_BANK),
+    (PAYMENT_METHOD_CARD, PAYMENT_METHOD_CARD),
+)
 User = get_user_model()
 
 
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=ORDER_STATUSES, default=PENDING)
+    status = models.CharField(
+        max_length=20, choices=ORDER_STATUSES, default=ORDER_AWAITING_PAYMENT
+    )
     date_placed = models.DateTimeField()
+    payment_method = models.CharField(
+        max_length=20, choices=PAYMENT_METHODS, default=PAYMENT_METHOD_CARD
+    )
 
     class Meta:
         ordering = ["-date_placed"]

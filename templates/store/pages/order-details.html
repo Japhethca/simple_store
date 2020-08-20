@@ -1,0 +1,43 @@
+{% extends 'store/profile-base.html' %}
+{% load static %}
+{% block title %} Order #{{order.id}} {% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/accounts.css" %}">
+{% endblock extra_css %}
+
+{% block profile_view %}
+<div class="">
+  <div class="d-flex mb-4">
+    <div class='h3 mr-auto'>Order #{{order.id}}</div>
+    <div
+      class="badge {%if order.status == 'COMPLETED'%}badge-success{%elif order.status == 'PENDING'%}badge-info {%elif order.status == 'CANCELLED'%}badge-danger{%elif order.status == 'AWAITING PAYMENT'%}badge-warning{%endif%} align-self-center">
+      {{order.status}}</div>
+  </div>
+
+  {% if order.status == 'AWAITING PAYMENT' %}
+  <a class="btn ss__btn mb-4" href="{% url 'make-order-payment' order.id %}">Complete Payment</a>
+  {% endif %}
+
+  <table class="table">
+    <thead class="thead-light">
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Sub Total</th>
+    </thead>
+    <tbody>
+      {% for order_item in order_items %}
+      <tr>
+        <td>{{order_item.product.name}}</td>
+        <td>{{order_item.quantity}}</td>
+        <td>{{order_item.total_price}}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="2">Total</td>
+        <td class="font-weight-bold">{{order_total_price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock profile_view %}

@@ -7,6 +7,6 @@
   <h1>Your Order has been placed</h1>
   <p>Your order number is #{{order_number}}</p>
   <p>Please Proceed to make payment</p>
-  <a class="btn ss__btn" href="{% url 'make-order-payment' %}">Make Payment</a>
+  <a class="btn ss__btn" href="{% url 'make-order-payment' order_number=order_number%}">Make Payment</a>
 </div>
 {% endblock content %}
