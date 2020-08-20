@@ -13,11 +13,16 @@ class OrderSuccess(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        order_details = self.request.session["order_details"]
-        if not order_details:
-            return redirect("checkout")
-        context["order_number"] = order_details.get("order_number")
+        order_details = self.request.session.get("order_details", None)
+        if order_details is not None:
+            context["order_number"] = order_details.get("order_number", None)
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if context.get("order_number", None) is None:
+            return redirect("cart")
+        return super().get(request, *args, **kwargs)
 
 
 class OrderPayment(View):
@@ -25,11 +30,9 @@ class OrderPayment(View):
         return self.handle_paystack_payment(request)
 
     def handle_paystack_payment(self, request):
-        order_details = request.session["order_details"]
-        if not order_details:
-            print("No order in sessions")
+        order_details = request.session.get("order_details", None)
+        if order_details is None:
             return redirect("checkout")
-        del request.session["order_details"]
 
         payment_method = order_details.get("payment_method")
         order_amount = order_details.get("order_amount")
@@ -58,6 +61,7 @@ class OrderPayment(View):
             )
 
         if res.status_code == requests.codes["ok"]:
+            del request.session["order_details"]
             return redirect(data["data"]["authorization_url"])
 
         return redirect("checkout")
