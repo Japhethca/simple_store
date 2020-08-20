@@ -1,33 +1,3 @@
-.ss__cart-table {
-  margin-top: 1rem;
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-.ss__cart-table a {
-  text-transform: capitalize;
-  color: black;
-}
-
-.ss__cart-table a:hover {
-  text-decoration: none;
-  color: #85203b;
-}
-
-.ss__cart-table thead {
-  background-color: rgb(220, 226, 226);
-}
-
-.ss__cart-table th {
-  text-transform: uppercase;
-  padding: 1rem;
-}
-
-.ss__cart-table td {
-  padding: 0.5rem;
-}
-
 .ss_cart-checkout {
   display: flex;
   flex-direction: column;

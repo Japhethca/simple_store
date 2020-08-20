@@ -32,3 +32,12 @@ body {
 .ss__btn:hover {
   color: #fff;
 }
+
+.ss__link {
+  color: #c94e4e;
+}
+
+.ss__link:hover {
+  text-decoration: none;
+  color: #713045;
+}
