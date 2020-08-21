@@ -29,8 +29,9 @@
       <ul class="ss__nav-menu">
         {% if user.is_authenticated %}
         <li class="ss__nav-menu-item">
-          <a href="{% url 'customer' %}">{{user.username|title}}</a> | <form
-            action="{% url 'account_logout' %}?next={{request.path}}" style="display:inline;" method="POST">
+          <a
+            href="{% url 'customer' %}">{% if user.username %}{{user.username|title}}{% else %}{{user.email}}{% endif %}</a>
+          | <form action="{% url 'account_logout' %}?next={{request.path}}" style="display:inline;" method="POST">
             {% csrf_token %}
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

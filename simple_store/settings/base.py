@@ -33,9 +33,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "storages",
     # simple store apps
+    "simple_store.apps.core",
     "simple_store.apps.store",
     "simple_store.apps.rest",
-    "simple_store.apps.core",
 ]
 
 MIDDLEWARE = [
@@ -84,6 +84,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "core.User"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -114,7 +116,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Authentication backend settings
-ADMIN_LOGIN = os.getenv("ADMIN_USER")
+ADMIN_LOGIN = os.getenv("ADMIN_EMAIL")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 
