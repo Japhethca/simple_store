@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class SettingsBackend(BaseBackend):
@@ -10,12 +12,11 @@ class SettingsBackend(BaseBackend):
         pass_valid = check_password(password, settings.ADMIN_PASSWORD)
         if login_valid and pass_valid:
             try:
-                user = User.objects.get(username=username)
+                user = User.objects.get(email=username)
             except User.DoesNotExist:
                 # user does not exist
-                user = User(username=username)
-                user.is_staff = True
-                user.is_superuser = True
+                user = User(email=username)
+                user.is_admin = True
                 user.save()
             return user
 
@@ -28,4 +29,4 @@ class SettingsBackend(BaseBackend):
             return None
 
     def has_perm(self, user_obj, perm, obj=None):
-        return user_obj.username == settings.ADMIN_LOGIN
+        return user_obj.email == settings.ADMIN_LOGIN
