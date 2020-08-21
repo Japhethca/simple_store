@@ -16,6 +16,8 @@ django-compressor = "*"
 django-allauth = "*"
 django-crispy-forms = "*"
 requests = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.8"

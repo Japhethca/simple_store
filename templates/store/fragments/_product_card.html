@@ -4,8 +4,10 @@
 {% endblock extra_css  %}
 
 <div class="ss__product-card">
-  <img class="ss__product-card-img" src={% if product.image %} {{product.image}} {% else %}
+  {% with product.photo_set.all|first as image %}
+  <img class="ss__product-card-img" src={% if image %}{{image.upload.url}}{% else %}
     {% static 'images/no-product-image.jpg' %} {% endif %} alt="{{product.name}}">
+  {% endwith %}
   <a class="ss__product-title" href="{% url 'product-details' product.name|slugify product.id %}">{{product.name}}</a>
   <div class="ss__product-price">${{product.price}}</div>
 </div>
