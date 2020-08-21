@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from django.utils.text import slugify
 
 
 class Product(models.Model):
@@ -12,9 +11,6 @@ class Product(models.Model):
     brand = models.ForeignKey("Brand", null=True, blank=True, on_delete=models.SET_NULL)
     discounts = models.DecimalField(
         decimal_places=2, max_digits=20, null=True, blank=True
-    )
-    photos = models.ForeignKey(
-        "Photo", null=True, blank=True, on_delete=models.SET_NULL
     )
     color = models.CharField(max_length=100, null=True, blank=True)
     size = models.CharField(max_length=100, null=True, blank=True)
@@ -53,8 +49,9 @@ class Brand(models.Model):
 
 
 class Photo(models.Model):
-    url = models.URLField()
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE)
+    upload = models.FileField(upload_to="images")
+    is_cover = models.BooleanField(default=False)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.url
+        return self.upload.url

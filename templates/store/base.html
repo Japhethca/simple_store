@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
     integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
   {% endcomment %}
-  {% compress css %}
+  {% comment %} {% compress css %} {% endcomment %}
   {% block styles %}
   <link rel="stylesheet" href={% static "css/styles.css" %}>
   {% endblock styles %}
   {% block extra_css%} {% endblock extra_css %}
-  {% endcompress %}
+  {% comment %} {% endcompress %} {% endcomment %}
 </head>
 
 <body class="ss_background">

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.google",
     "crispy_forms",
+    "storages",
     # simple store apps
     "simple_store.apps.store",
     "simple_store.apps.rest",
@@ -116,6 +117,7 @@ SOCIALACCOUNT_PROVIDERS = {
 ADMIN_LOGIN = os.getenv("ADMIN_USER")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -130,7 +132,6 @@ COMPRESS_ENABLED = True
 
 STATICFILES_DIRS = [
     os.path.join(ROOT_DIR, "static"),
-    # "/var/www/static/",
 ]
 
 STATICFILES_FINDERS = (
@@ -145,3 +146,4 @@ STATIC_ROOT = "/var/www/static"
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+

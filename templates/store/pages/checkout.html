@@ -72,8 +72,8 @@
             </svg>
           </a>
         </h4>
-        <table class='cart-items-table w-100'>
-          <thead>
+        <table class='table'>
+          <thead class="thead-light">
             <th>Product</th>
             <th>Quantity</th>
             <th>Sub-Total</th>
@@ -85,7 +85,7 @@
                 <a href="{% url 'product-details' item.product_id.name|slugify item.product_id.id %}"
                   title="{{item.product_id.name}}">{{item.product_id.name|truncatechars:"15"}}</a>
               </td>
-              <td>{{item.quantity}}</td>
+              <td class="text-center">{{item.quantity}}</td>
               <td>${{item.total_price}}</td>
             </tr>
             {% endfor %}

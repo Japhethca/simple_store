@@ -8,25 +8,28 @@
 {% block content %}
 
 <div class="mt-4">
-    <section class="ss__product-details row">
-        <div class="ss__product-images col">
-            <img src="{% if product.image %} {{product.image}} {% else %} {% static 'images/no-product-image.jpg'%} {% endif %}"
-                alt={{product.name|slugify}} class="product-image">
-        </div>
-        <div class="ss__product-info col mt-3 mt-md-0">
-            <h2>{{product.name|title}}</h2>
-            <p>${{product.price}}</p>
-            <form action="{% url "cart" %}?next={{request.path}}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{product.id}}">
-                <button class="btn ss__btn">Add to Cart</button>
-            </form>
-        </div>
-    </section>
-    <section class="mt-4">
-        <h3>Description</h3>
-        <p>{{product.description}}</p>
-    </section>
+  <section class="ss__product-details row">
+    <div class="col-md-4 col-sm-12 ">
+      {% with product.photo_set.all|first as product_image %}
+      <img class="img-fluid"
+        src="{% if product_image %} {{product_image.upload.url}} {% else %} {% static 'images/no-product-image.jpg'%} {% endif %}"
+        alt={{product.name|slugify}} class="product-image">
+      {% endwith %}
+    </div>
+    <div class="col-md-8 col-sm-12 mt-3 mt-md-0">
+      <h2>{{product.name|title}}</h2>
+      <p>${{product.price}}</p>
+      <form action="{% url "cart" %}?next={{request.path}}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{product.id}}">
+        <button class="btn ss__btn">Add to Cart</button>
+      </form>
+    </div>
+  </section>
+  <section class="mt-4">
+    <h3>Description</h3>
+    <p>{{product.description}}</p>
+  </section>
 </div>
 
 {% endblock content %}
