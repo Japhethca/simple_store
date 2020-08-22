@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "crispy_forms",
     "storages",
+    "watson",
     # simple store apps
     "simple_store.apps.core",
     "simple_store.apps.store",
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "watson.middleware.SearchContextMiddleware",
 ]
 
 ROOT_URLCONF = "simple_store.urls"
@@ -149,3 +151,4 @@ STATIC_ROOT = "/var/www/static"
 
 STATIC_URL = "/static/"
 
+WATSON_BACKEND = "watson.backends.PostgresSearchBackend"

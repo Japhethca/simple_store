@@ -20,6 +20,7 @@ from .views import (
     OrderPayment,
     OrderPaymentSuccess,
     OrderDetails,
+    search,
 )
 
 urlpatterns = [
@@ -30,6 +31,7 @@ urlpatterns = [
         ProductDetail.as_view(),
         name="product-details",
     ),
+    path("search", search, name="search"),
     path("catalog", CatalogView.as_view(), name="catalog"),
     path("c/<slug:category_name>", CategoryView.as_view(), name="category-products"),
     # cart
