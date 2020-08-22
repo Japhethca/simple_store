@@ -20,8 +20,11 @@
       </svg>
     </div>
 
-    <form action="" class="d-none d-md-flex">
-      <input type="text" placeholder="Search for Products" class="ss__search-input" />
+    <form action="{% url 'search' %}" method="GET" class="d-none d-md-flex">
+      {% with request.GET.q as query %}
+      <input type="text" name="q" placeholder="Search for Products" class="ss__search-input"
+        value="{% if query and query != '/' %}{{query}}{% endif %}" />
+      {% endwith %}
       <button class="ss__search-button">Search</button>
     </form>
 
