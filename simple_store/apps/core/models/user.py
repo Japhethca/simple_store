@@ -13,7 +13,7 @@ class UserManager(BaseUserManager):
             raise ValueError("User must have an email address")
 
         user = self.model(
-            email=self.normalize_email(email), is_admin=is_admin ** kwargs
+            email=self.normalize_email(email), is_admin=is_admin, **kwargs
         )
         user.set_password(password)
         user.save(using=self._db)
