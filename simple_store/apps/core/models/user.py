@@ -7,11 +7,14 @@ class UserManager(BaseUserManager):
     def create_user(self, **kwargs):
         password = kwargs.pop("password")
         email = kwargs.pop("email")
+        is_admin = kwargs.pop("is_admin", False)
 
         if not email:
             raise ValueError("User must have an email address")
 
-        user = self.model(email=self.normalize_email(email), **kwargs)
+        user = self.model(
+            email=self.normalize_email(email), is_admin=is_admin ** kwargs
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -19,6 +22,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, **kwargs):
         user = self.create_user(**kwargs)
         user.is_active = True
+        user.is_admin = True
         user.save(using=self._db)
         return user
 
