@@ -5,11 +5,6 @@
 
 {% block content %}
 <div>
-  {% comment %} <h2>search results</h2> {% endcomment %}
   {% include 'store/fragments/_product_list.html' with products=search_results section_header_title="Search Results" %}
-  {% comment %} {% for result in search_results %}
-  <p>{{result.name}}</p>
-  {% endfor %}
-  <div>{{search_results}}</div> {% endcomment %}
 </div>
 {% endblock content %}
