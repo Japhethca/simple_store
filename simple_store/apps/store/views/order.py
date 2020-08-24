@@ -68,9 +68,7 @@ class OrderPayment(LoginRequiredMixin, View):
         order = get_object_or_404(Order, pk=order_number)
         callback_url = f"{request.scheme}://{request.get_host()}{reverse('payment-success', args=[order.id])}"
 
-        order_items = OrderItem.objects.filter(order=order)
-        order_amount = order_items.aggregate(Sum("total_price")).get("total_price__sum")
-        order_amount = self.calculate_order_amount(order_amount)
+        order_amount = self.calculate_order_amount(order)
         payload = {
             "email": request.user.email or f"{request.user.username}@noemail.com",
             "amount": str(order_amount),
@@ -92,10 +90,13 @@ class OrderPayment(LoginRequiredMixin, View):
             )
             return redirect("checkout")
 
-    def calculate_order_amount(self, amount):
+    def calculate_order_amount(self, order):
+        order_items = OrderItem.objects.filter(order=order)
+        order_amount = order_items.aggregate(Sum("total_price")).get("total_price__sum")
+
         if settings.DEFAULT_CURRENCY["name"] == "NAIRA":
-            return amount * 100  # convert the amount to Kobo
-        return amount
+            return order_amount * 100  # convert the amount to Kobo
+        return order_amount
 
 
 class OrderPaymentSuccess(LoginRequiredMixin, TemplateView):
