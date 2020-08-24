@@ -4,11 +4,11 @@ from django.shortcuts import (
     reverse,
 )
 from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, ListView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import model_to_dict
+from django.http import QueryDict
 
 from simple_store.apps.core.models import BillingAddress
 from ..forms import (
@@ -61,7 +61,7 @@ class CustomerAddressNew(LoginRequiredMixin, FormView):
     model = BillingAddress
 
     def get_success_url(self):
-        return reverse("customer-address")
+        return f"{reverse('customer-address')}?{self.request.META['QUERY_STRING']}"
 
     def get_initial(self):
         if (address_pk := self.kwargs.get("pk", None)) is not None:
@@ -86,7 +86,9 @@ class CustomerAddressNew(LoginRequiredMixin, FormView):
 class CustomerAddressDelete(LoginRequiredMixin, DeleteView):
     model = BillingAddress
     login_url = "/accounts/login"
-    success_url = reverse_lazy("customer-address")
+
+    def get_success_url(self):
+        return f"{reverse('customer-address')}?{self.request.META['QUERY_STRING']}"
 
 
 class CustomerAddressSetDefault(LoginRequiredMixin, View):
@@ -94,10 +96,18 @@ class CustomerAddressSetDefault(LoginRequiredMixin, View):
     login_url = "/accounts/login"
     http_method_names = ["post"]
 
-    def post(self, *args, **kwargs):
+    def post(self, request, **kwargs):
         address_pk = kwargs.get("pk")
         address_model = self.model.objects.get(pk=address_pk)
         self.model.set_as_default(address_model)
+        return self.handle_redirect(request)
+
+    def handle_redirect(self, request):
+        supported_reqirects = [reverse("checkout")]
+        qd = QueryDict(self.request.META["QUERY_STRING"])
+        next_url = qd.get("next")
+        if next_url in supported_reqirects:
+            return redirect(next_url)
         return redirect(reverse("customer-address"))
 
 
