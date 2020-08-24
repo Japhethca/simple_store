@@ -33,7 +33,8 @@
           {% endif %}
         </div>
         <div>
-          <a class='btn btn-outline-secondary' href="{% url "customer-address"%}">Add / Change Address</a>
+          <a class='btn btn-outline-secondary' href="{% url "customer-address"%}?next={{request.path}}">Add / Change
+            Address</a>
         </div>
       </section>
 
