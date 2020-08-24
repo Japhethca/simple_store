@@ -35,8 +35,8 @@ class CheckoutView(LoginRequiredMixin, View):
         return render(request, self.template_name, context=context)
 
     def post(self, request):
-        if not request.user.is_authenticated:
-            print("user is not authenticated")
+        cart_items = self.get_cart_items(request)
+        if not request.user.is_authenticated or len(cart_items) < 1:
             return redirect("cart")
 
         payment_form = self.get_payment_form(request)
@@ -61,8 +61,7 @@ class CheckoutView(LoginRequiredMixin, View):
         return render(request, self.template_name, context=post_context)
 
     def get_cart_context(self, request):
-        cart = Cart.objects.get(customer_id=request.user)
-        items_in_cart = CartItem.objects.filter(cart=cart)
+        items_in_cart = self.get_cart_items(request)
         total_item_price = items_in_cart.aggregate(Sum("total_price")).get(
             "total_price__sum"
         )
@@ -88,13 +87,16 @@ class CheckoutView(LoginRequiredMixin, View):
             BillingAddress.set_as_default(default_address)
         return default_address
 
-    def create_order(self, request, payment_method):
+    def get_cart_items(self, request):
         cart = Cart.objects.get(customer_id=request.user.id)
         cart_items = CartItem.objects.filter(cart=cart)
+        return cart_items
 
+    def create_order(self, request, payment_method):
         order = Order.objects.create(
             customer=request.user, payment_method=payment_method
         )
+        cart_items = self.get_cart_items(request)
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
