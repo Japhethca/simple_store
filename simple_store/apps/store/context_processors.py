@@ -1,5 +1,5 @@
 """store app global context"""
-
+from django.conf import settings
 from django.db.models import Sum
 
 from simple_store.apps.core.models import Cart, CartItem
@@ -15,3 +15,9 @@ def cart(request):
         )
         cart_item_number = cart_items.get("quantity__sum", 0)
     return {"cart_items_number": cart_item_number}
+
+
+def currency(request):
+    default_currency = settings.DEFAULT_CURRENCY
+    return {"default_currency": default_currency}
+

@@ -37,12 +37,12 @@
       <tr>
         <td>{{order_item.product.name}}</td>
         <td>{{order_item.quantity}}</td>
-        <td>{{order_item.total_price}}</td>
+        <td>{{default_currency.symbol}}{{order_item.total_price}}</td>
       </tr>
       {% endfor %}
       <tr>
         <td colspan="2">Total</td>
-        <td class="font-weight-bold">{{order_total_price}}</td>
+        <td class="font-weight-bold">{{default_currency.symbol}}{{order_total_price}}</td>
       </tr>
     </tbody>
   </table>

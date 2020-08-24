@@ -64,6 +64,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "simple_store.apps.store.context_processors.cart",
+                "simple_store.apps.store.context_processors.currency",
             ],
         },
     },
@@ -152,3 +153,5 @@ STATIC_ROOT = "/var/www/static"
 STATIC_URL = "/static/"
 
 WATSON_BACKEND = "watson.backends.PostgresSearchBackend"
+
+DEFAULT_CURRENCY = {"name": "NAIRA", "symbol": "₦"}
