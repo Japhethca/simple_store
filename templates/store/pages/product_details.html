@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-8 col-sm-12 mt-3 mt-md-0">
       <h2>{{product.name|title}}</h2>
-      <p>${{product.price}}</p>
+      <p>{{default_currency.symbol}}{{product.price}}</p>
       <form action="{% url "cart" %}?next={{request.path}}" method="post">
         {% csrf_token %}
         <input type="hidden" name="product_id" value="{{product.id}}">

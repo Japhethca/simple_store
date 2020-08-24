@@ -86,12 +86,12 @@
                   title="{{item.product_id.name}}">{{item.product_id.name|truncatechars:"15"}}</a>
               </td>
               <td class="text-center">{{item.quantity}}</td>
-              <td>${{item.total_price}}</td>
+              <td>{{default_currency.symbol}}{{item.total_price}}</td>
             </tr>
             {% endfor %}
             <tr>
               <td colspan="2">Total Price</td>
-              <td><strong>${{total_cart_price}}</strong></td>
+              <td><strong>{{default_currency.symbol}}{{total_cart_price}}</strong></td>
             </tr>
           </tbody>
         </table>

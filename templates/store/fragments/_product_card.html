@@ -9,5 +9,5 @@
     {% static 'images/no-product-image.jpg' %} {% endif %} alt="{{product.name}}">
   {% endwith %}
   <a class="ss__product-title" href="{% url 'product-details' product.name|slugify product.id %}">{{product.name}}</a>
-  <div class="ss__product-price">${{product.price}}</div>
+  <div class="ss__product-price">{{default_currency.symbol}}{{product.price}}</div>
 </div>
