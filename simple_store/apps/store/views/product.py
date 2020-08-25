@@ -47,6 +47,7 @@ class CatalogView(ListView):
     template_name = "store/pages/catalog.html"
     queryset = Product.objects.all()
     context_object_name = "products"
+    paginate_by = 20
 
 
 class CategoryView(ListView):
