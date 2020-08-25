@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-
+from django.conf import settings
 from .models import (
     Category,
     Product,
@@ -19,6 +19,8 @@ from .models import (
     OrderItem,
     User,
 )
+
+site_currency_symbol = settings.DEFAULT_CURRENCY.get("symbol")
 
 
 class UserCreationForm(forms.ModelForm):
@@ -92,21 +94,94 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("name", "product_price", "brand", "published")
+    search_fields = ("name", "description")
+
+    def product_price(self, obj):
+
+        return f"{site_currency_symbol}{obj.price}"
+
+    product_price.short_description = "Price"
+
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("cart_number", "cart_owner")
+
+    def cart_number(self, obj):
+        return obj.id
+
+    cart_number.short_description = "Cart ID"
+
+    def cart_owner(self, obj):
+        return obj.customer_id.email
+
+    cart_number.short_description = "Cart Owner"
+
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ("product_name", "quantity", "item_total_price", "cart_owner")
+
+    def product_name(self, obj):
+        return obj.product_id.name
+
+    product_name.short_description = "Product Name"
+
+    def item_total_price(self, obj):
+        return f"{site_currency_symbol}{obj.total_price}"
+
+    item_total_price.short_description = "Total Price"
+
+    def cart_owner(self, obj):
+        return obj.cart.customer_id.email
+
+    cart_owner.short_description = "Cart Owner"
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("order_number", "order_owner")
+
+    def order_number(self, obj):
+        return obj.id
+
+    order_number.short_description = "Order Number"
+
+    def order_owner(self, obj):
+        return obj.customer.email
+
+    order_owner.short_description = "Order Owner"
+
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ("product_name", "quantity", "item_total_price", "order_owner")
+
+    def product_name(self, obj):
+        return obj.product.name
+
+    product_name.short_description = "Product Name"
+
+    def item_total_price(self, obj):
+        return f"{site_currency_symbol}{obj.total_price}"
+
+    item_total_price.short_description = "Total Price"
+
+    def order_owner(self, obj):
+        return obj.order.customer.email
+
+    order_owner.short_description = "Order Owner"
+
+
+admin.site.site_header = "Simple Store Admin"
+admin.site.site_title = "Simple Store Admin"
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Product, ProductAdmin)
+admin.site.register(CartItem, CartItemAdmin)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(
-    [
-        Product,
-        Category,
-        Brand,
-        Photo,
-        Customer,
-        Review,
-        Rating,
-        Cart,
-        CartItem,
-        Order,
-        OrderItem,
-    ]
+    [Category, Brand, Photo, Customer, Review, Rating,]
 )
 
 admin.site.unregister(Group)
